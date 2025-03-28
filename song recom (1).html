@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodTunes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #000000; /* Dark background */
+            color: white;
+            text-align: center;
+        }
+
+        .header {
+            font-size: 3rem;
+            font-family: 'Pacifico', cursive;
+            font-weight: bold;
+            padding: 20px;
+            background: #ff5500; /* SoundCloud Orange */
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 50px; /* Add margin to create space between header and content */
+        }
+
+        .header img {
+            width: 40px; /* Adjust logo size */
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .section {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            padding: 30px;
+        }
+
+        .landing img {
+            width: 85%;
+            max-height: 50vh;
+            border-radius: 20px;
+            box-shadow: 0px 8px 15px rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .mood-btn, .language-btn, .back-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: linear-gradient(145deg, #ff5500, #ff8800); /* SoundCloud Orange Gradient */
+            border: none;
+            padding: 18px 35px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            color: white;
+            margin: 15px;
+            box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.5);
+        }
+
+        .mood-btn:hover, .language-btn:hover, .back-btn:hover {
+            transform: scale(1.1);
+            background: linear-gradient(145deg, #ff8800, #ff5500); /* Reverse gradient on hover */
+        }
+
+        .song-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #222222; /* Dark background for song items */
+            padding: 15px;
+            margin: 15px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(255, 255, 255, 0.3);
+            width: 150px; /* Reduced size to fit 2 per row */
+            height: 220px; /* Adjusted height */
+            transition: all 0.3s;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .song-item:hover {
+            background: #ff5500; /* SoundCloud Orange on hover */
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .song-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .song-item .song-info {
+            padding-top: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .song-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .song-item:hover .song-info {
+            color: #000;
+        }
+
+        h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+
+        /* Style for the song list */
+        #songList {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            min-height: 50vh; /* Ensures enough space for songs */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://media.istockphoto.com/vectors/cartoon-headhpones-playing-music-vector-id905214218?k=6&m=905214218&s=612x612&w=0&h=Pvv3n_fPkElPN37gAMrrXqaIFUUUTgSJz4OgKlm4DHw=" alt="MoodTunes Logo">
+        <div>MoodTunes</div>
+    </div>
+    
+    <div class="section landing" id="landing">
+        <!-- Replace this with the actual image URL -->
+        <img src="https://png.pngtree.com/background/20230613/original/pngtree-anime-girl-listening-to-music-picture-image_3381911.jpg" alt="Music Image"> 
+        <button class="mood-btn" onclick="nextSection('moodSection')">Select Mood</button>
+    </div>
+
+    <div class="section" id="moodSection">
+        <h2>Select Your Mood</h2>
+        <button class="mood-btn" onclick="selectMood('happy')">😊 Happy</button>
+        <button class="mood-btn" onclick="selectMood('sad')">😢 Sad</button>
+        <button class="mood-btn" onclick="selectMood('energetic')">⚡ Energetic</button>
+        <button class="mood-btn" onclick="selectMood('romantic')">💖 Romantic</button>
+        <button class="mood-btn" onclick="selectMood('silent')">🤫 Silent</button>
+    </div>
+
+    <div class="section" id="languageSection">
+        <h2>Select Your Language</h2>
+        <button class="language-btn" onclick="selectLanguage('english')">English</button>
+        <button class="language-btn" onclick="selectLanguage('hindi')">Hindi</button>
+        <button class="language-btn" onclick="selectLanguage('marathi')">Marathi</button>
+        <button class="language-btn" onclick="selectLanguage('punjabi')">Punjabi</button>
+    </div>
+
+    <div class="section" id="songsSection">
+        <input type="text" id="searchBar" placeholder="Search for songs..." onkeyup="searchSongs()" style="
+    width: 80%;
+    padding: 12px;
+    font-size: 1.2rem;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    text-align: center;
+    margin-bottom: 20px;
+    background: #222;
+    color: white;
+">
+
+        <h2>Recommended Songs</h2>
+        <div id="songList"></div>
+        <button class="back-btn" onclick="goBack()">Go Back</button>
+    </div>
+
+    <script>
+        
+function searchSongs() {
+    let input = document.getElementById("searchBar").value.toLowerCase();
+    let songs = document.getElementsByClassName("song-item");
+
+    for (let i = 0; i < songs.length; i++) {
+        let songName = songs[i].querySelector(".song-info").textContent.toLowerCase();
+        if (songName.includes(input)) {
+            songs[i].style.display = "flex"; // Show matching songs
+        } else {
+            songs[i].style.display = "none"; // Hide non-matching songs
+        }
+    }
+}
+
+
+        const songs = {
+            happy: {
+                english: [{name: "Happy - Pharrell Williams", img: "https://gfx2.decks.de/decks/gfx/co_raw/front/end_8/c2v-r8.jpg"}, {name: "Can't Stop the Feeling - Justin Timberlake", img: "https://pics.filmaffinity.com/Justin_Timberlake_Can_t_Stop_the_Feeling_Music_Video-436723919-large.jpg"},{name:  "walking on sunshine-katrina" , img: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/2c/44/fd/2c44fdd6-73d8-d818-71f9-6aa53bdfbf13/23UM1IM20181.rgb.jpg/1200x1200bf-60.jpg"},{name:  "Don't Stop Me Now – Queen" , img: "https://i.pinimg.com/originals/7f/c4/ce/7fc4cecf00b390c6664d19b5c04d7d52.jpg"},{name:  "Count on Me – Bruno Mars" , img: "https://i.ytimg.com/vi/_r88ao7VFE4/maxresdefault.jpg"},{name:  "who says-selena gomez" , img: "https://1.bp.blogspot.com/-P7_a3OCUY2A/TcGw-S8vJtI/AAAAAAAAA1I/DqN05fnvCJk/s1600/Selena-Gomez-The-Scene-Who-Says-My-FanMade-Single-Cover-anichu90-19820212-600-600.jpg"}],
+                hindi: [{name: "Gallan Goodiyan - shankar mahadevan", img: "https://i.ytimg.com/vi/O6t_fEpfN54/maxresdefault.jpg"}, {name: "Kala Chashma - neha kakkar", img: "https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2022/08/mm-7-1661857654.jpg"},{name: "shayad-arijit singh", img: "https://is3-ssl.mzstatic.com/image/thumb/Music114/v4/27/3e/14/273e1405-41f2-8290-679e-10c75f2ff4ec/886449193172.jpg/1200x1200bf-60.jpg"},{name: "piyu bole-shreya ghoshal", img: "https://i.ytimg.com/vi/ZAkr0KFFLLs/maxresdefault.jpg"},{name: "o rangrez-shreya & javed", img: "https://i.pinimg.com/originals/9a/11/8d/9a118dd9e7f85cabb6ec5d65ef2d18fd.jpg"},{name: "laila majnu-atif aslam", img: "https://assets.voxcinemas.com/posters/P_HO00005880.jpg"}],
+                marathi:[{name: "sar sukhachi shravani-abhijeet", img: "https://img.wynk.in/unsafe/200x200/filters:no_upscale():strip_exif():format(jpg)/http://s3-ap-south-1.amazonaws.com/wynk-music-cms/music/srch_pplmumbai_8285754.JPG"}, {name: "Tik Tik vajate-bela shende", img: "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f0/13/8b/f0138be8-f24d-ec90-bb2e-fd4599f237a2/cover.jpg/1200x1200bf-60.jpg"},{name: "dhaga dhaga-dagadi chawl", img: "https://i.ytimg.com/vi/6zoKKPTzWUE/mqdefault.jpg"},{name: "Kadhi Tu-Hrishikesh", img: "https://m.media-amazon.com/images/I/61tbvY3hVoL._SX472_SY472_BL0_QL100_.jpg"},{name: "Man Mandira-Shankar Mahadevan", img: "https://i.ytimg.com/vi/OMRwy7y6rog/maxresdefault.jpg"},{name: "Saaj hyo tuza-Baban", img: "https://i.scdn.co/image/ab67616d0000b2735de0269f0cac9af9f9084d93"}],
+                punjabi:[{name: "Born to shine-Diljit", img: "https://www.radioandmusic.com/sites/www.radioandmusic.com/files/images/entertainment/2020/09/03/born.jpg"}, {name: "Brown munde-Ap dhillon", img: "https://britasia.tv/wp-content/uploads/2020/09/Eh09An1VkAEohgB.jpg"},{name: "One love-shubh", img: "https://images.genius.com/e75267f9a3c4a6b0156ea394113e8ec8.1000x1000x1.jpg"},{name: "Kinni Kinni-Diljit", img: "https://i.ytimg.com/vi/keU-JuVwITU/maxresdefault.jpg"},{name: "Tuba tauba-karan aujla", img: "https://stat4.bollywoodhungama.in/wp-content/uploads/2024/07/Vicky-Kaushal-and-Karan-Aujla-shine-on-Times-Square-with-viral-Tauba-Tauba-from-Bad-Newz-see-pics-1.jpg"},{name: "Dance like-hardy sandhu", img: "https://c.saavncdn.com/850/Dance-Like-Punjabi-2019-20191130051515-500x500.jpg"}],
+            },
+            sad: {
+                english: [{name: "Someone Like You - Adele", img: "https://www.playhousewhitleybay.co.uk/images/lg_20190214155847_450.jpg"}, {name: "Let Her Go - Passenger", img: "https://fthmb.tqn.com/giAOgmXQChrBN9U410EpeX2Pj_E=/768x0/filters:no_upscale()/passenger-let-her-go-56a96c4b3df78cf772a6d6e0.jpg"}, {name: "all too well-taylor swift", img: "https://i.pinimg.com/736x/45/8d/4f/458d4ffe48eb61048ab6ea3bc15519c6.jpg"}, {name: "if i die young-naya rivera", img: "https://i.scdn.co/image/ab67616d0000b27338fdd6ce0d9412572519519f"}, {name: "hurt-nine nails", img: "https://i.ytimg.com/vi/FdECuBuX7gQ/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgZShlMA8=&rs=AOn4CLAMweEynaJE7wCp12rZiR3sooydsw"}, {name: "tear in your hand-tori amos", img: "https://www.crushingkrisis.com/assets/tori-amos-little-earthquakes-alt-cover-photo.jpg"}],
+                hindi: [{name: "Channa Mereya - Arijit", img: "https://c.saavncdn.com/103/Channa-Mereya-From-Ae-Dil-Hai-Mushkil-Hindi-2016-500x500.jpg"}, {name: "Agar Tum Saath Ho - arijit singh", img: "https://c.saavncdn.com/994/Tamasha-Hindi-2015-500x500.jpg"},{name: "choo loo-local train", img: "https://i.ytimg.com/vi/dcpaSXg6kRM/maxresdefault.jpg"},{name: "bulleya-papon", img: "https://static.wixstatic.com/media/4424e5_2a568ff67bf2464eb2e0828545684549~mv2.jpeg/v1/fill/w_873,h_521,al_c,q_85/4424e5_2a568ff67bf2464eb2e0828545684549~mv2.jpeg"},{name: "raanjhan-do patti", img: "https://i.ytimg.com/vi/9KUelyDz0MQ/hqdefault.jpg"},{name: "bekhayali-arijit singh", img: "https://ih1.redbubble.net/image.3647642078.5472/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"}],
+                marathi:[{name: "khel mandala-Ajay", img: "https://i.ytimg.com/vi/srx1Bepjwhk/hqdefault.jpg"}, {name: "deva tuzya gabharyala-Adarsh", img: "https://i1.sndcdn.com/artworks-000057028296-v67wk8-t500x500.jpg"},{name: "kitida navyane-arya ambekar", img: "https://i.ytimg.com/vi/Mzl_komhNHU/hqdefault.jpg"},{name: "prem ki yatna-timepass", img: "https://lh3.googleusercontent.com/Wl51EFK9imrkyhwwInEOEhCjClcklbsAkBOJkAH8ZP9ULHZ8GMwx7BOIverLgsOTPul_Rquue21ens8"},{name: "Anand Harpla", img: "https://i.ytimg.com/vi/f0xCpS8w2fA/maxresdefault.jpg"},{name: "jeev ha sang na-Adarsh", img: "https://i.ytimg.com/vi/A1UQbp6y3uQ/hqdefault.jpg"}],
+                punjabi:[{name: "peed-Diljit dosanjh", img: "https://i.ytimg.com/vi/3hd_Hi0wHp8/hqdefault.jpg"}, {name: "saada pyar-Ap dhillon", img: "https://i.ytimg.com/vi/Lyfwy7aRfvY/hqdefault.jpg"},{name: "All night-Ap dhillon", img: "https://i.ytimg.com/vi/9Dgq4n1TeG0/hqdefault.jpg"},{name: "Filhaal-B praak", img: "https://live.staticflickr.com/65535/49037850887_29c2dfc94d.jpg"},{name: "Excuses-Ap dhillon", img: "https://i.scdn.co/image/ab67616d0000b2735b74e703d6ffb2ea16860c86"},{name: "Mann bharaya-B praak", img: "https://i.ytimg.com/vi/WfIsiD6-1bE/hqdefault.jpg"}],
+            },
+            energetic: {
+                english: [{name: "Unstoppable-sia", img: "https://i.ytimg.com/vi/h3h035Eyz5A/maxresdefault.jpg"}, {name: "Bones-imagine dragons", img:"https://i.ytimg.com/vi/DnniB9tm-i0/maxresdefault.jpg"}, {name: "close eyes-dvrst", img: "https://i.ytimg.com/vi/HFux0YO96NM/maxresdefault.jpg"}, {name: "snap-rosa", img: "https://i.ytimg.com/vi/mL-BkLpjsBE/maxresdefault.jpg"}, {name: "say my name-david", img: "https://cdn.wallpapersafari.com/29/16/7z5tqC.jpg"}, {name: "darkside-neoni", img: "https://i1.sndcdn.com/artworks-0mT77eZFtmNZcS4e-F6Ds8Q-t500x500.jpg"}],
+                hindi: [{name: "sauda khara-good newz", img: "https://i.ytimg.com/vi/oJVVAf5kLEY/maxresdefault.jpg"}, {name: "Senorita-znmd", img: "https://i.ytimg.com/vi/PuhOFhmy3BU/hqdefault.jpg"},{name: "Fevicol se-dabbang", img: "https://www.filmibeat.com/img/2012/11/30-babes.jpg"},{name: "kar gayi chull-badshah", img: "https://images.genius.com/f9452df785e79ef0e4937185e2bb68b6.600x600x1.jpg"},{name: "Tamma Tamma -anuradha", img: "https://data1.ibtimes.co.in/en/full/635616/tamma-tamma-again-song-badrinath-ki-dulhania.jpg"},{name: "Chikni Chameli-shreya", img: "https://images.hindustantimes.com/img/2022/07/18/1600x900/chikni_chameli_1658125961918_1658125970281_1658125970281.jpg"}],
+                marathi:[{name: "ye go ye -Aja-Atul", img: "https://i.ytimg.com/vi/ZHuvG3k32bw/hqdefault.jpg"}, {name: "zindagi zindagi-Duniyadari", img: "https://4.bp.blogspot.com/-kfTXtcmxNVY/U8pvrOCFVxI/AAAAAAAAAko/bK0Du5mnP2s/w1200-h630-p-k-no-nu/299247_269219963213944_924905795_n.jpg"},{name: "Lagnalu-avdhoot gupte", img: "https://i.ytimg.com/vi/0V2WJUNZ9XA/maxresdefault.jpg"},{name: "vajle ki bara-natrang", img:"https://i.ytimg.com/vi/rDpN1m4Hqpg/hqdefault.jpg"},{name: "shiti vajli-avdhoot gupte", img: "https://i1.sndcdn.com/artworks-000094981546-jxsq1g-t500x500.jpg"},{name: "zingaat-Ajay-Atul", img: "https://i.ytimg.com/vi/g8bTNID9nPs/maxresdefault.jpg"}],
+                punjabi:[{name: "Black & White-Diljit", img: "https://images.genius.com/b653b278a6c4da4bfe14455dd5d96cdc.799x1000x1.jpg"}, {name: "proper patola-Diljit", img: "https://m.media-amazon.com/images/M/MV5BNWYwZWEyMWMtOWZjYy00NjMyLWIxZDEtZDAxYzU5MWUxM2MwXkEyXkFqcGdeQXVyNjA4NTk0NjU@._V1_UY1200_CR390,0,630,1200_AL_.jpg"},{name: "Vibe-Diljit", img: "https://i.ytimg.com/vi/alDmNAh4-XI/maxresdefault.jpg"},{name: "Legend-Siddhu moosewala", img: "https://ih1.redbubble.net/image.3786203938.0677/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"},{name: "Insane-Ap dhillon", img: "https://im.indiatimes.in/content/2022/Jul/FXYoxtgakAEuUwe_62cd2afe14942.jpg?w=725&h=543&cc=1"},{name: "295-Siddhu moosewala", img: "https://downloads4djs.co.in/wp-content/uploads/2022/06/295-remix-1024x1024.jpg"}],
+            },
+            romantic: {
+                english: [{name: "blue-young kai", img: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/33/62/62/33626226-0cf3-ff64-3296-b2355de71fac/0748777703419.jpg/1200x1200bf-60.jpg"}, {name: "until i found you-stephen", img:"https://www.kalimbatabs.net/wp-content/uploads/2022/10/44DE2162-4311-4910-8027-F09F82CF6FF6-b955bf74.jpeg"}, {name: "those eyes-new west", img: "https://i.pinimg.com/736x/12/58/93/1258931173e9861c652c27e53f41cf09.jpg"}, {name: "wanna be yours-arctic", img: "https://i.pinimg.com/736x/28/68/d6/2868d65246f027d3d7118e8cae08f910.jpg"}, {name: "perfect-ed sheeran", img: "https://pics.filmaffinity.com/Ed_Sheeran_Perfect_Music_Video-262499921-large.jpg"}, {name: "shape of you-ed sheeran", img: "https://m.media-amazon.com/images/M/MV5BNWU3N2ZkODAtMTQ0MS00ODA3LWE4MWQtOWJiNjllZWU1NzdhXkEyXkFqcGdeQXVyNDQ5MDYzMTk@._V1_FMjpg_UX1000_.jpg"}],
+                hindi: [{name: "tera ban jaunga-arijit singh", img: "https://a.ltrbxd.com/resized/film-poster/5/0/5/6/0/5/505605-kabir-singh-0-460-0-690-crop.jpg?k=af8ffefcc9"}, {name: "apna banale-bhediya", img: "https://i0.wp.com/tellyflight.com/wp-content/uploads/2022/11/313122625_642092644248510_739995909023150961_n-edited.jpg?resize=640%2C640&ssl=1"},{name: "tu chahiye", img: "https://3.bp.blogspot.com/-HjRH7kZURJE/VYT6GvMphhI/AAAAAAAABR4/kfNEo81YfOA/s1600/Bajrangi-Bhaijaan-Tu-Chahiye.jpg"},{name: "dekha tenu-faiz", img: "https://d3lzcn6mbbadaf.cloudfront.net/media/details/ANI-20240515101811.jpg"},{name: "kaise hua-vishal", img: "https://hityaflopmovieworld.com/wp-content/uploads/2019/06/kaise-hua-video-song-from-kabir.jpg"},{name: "ek din aap-yes boss", img: "https://a10.gaanacdn.com/images/albums/7/6923407/crop_480x480_6923407.jpg"}],
+                marathi:[{name: "chand tu nabhatla-swapnil ", img: "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/39/98/8b/39988b88-69ac-1ce6-03b7-8708d9608c86/8718857701293.png/800x800cc.jpg"}, {name: "mitwa", img: "https://e1.pxfuel.com/desktop-wallpaper/894/136/desktop-wallpaper-mitwaa-mitwa-marathi-movie-thumbnail.jpg"},{name: "gulabi saadi-sanju", img: "https://tellyflight.com/wp-content/uploads/2024/04/Gulabi-Sadi-Song-Cast.jpg"},{name: "kevdyach paan tu", img:"https://i.ytimg.com/vi/EZzewfGfbC4/maxresdefault.jpg"},{name: "olya sanj veli", img: "https://c-cl.cdn.smule.com/rs-s78/arr/a0/69/29ebaf3a-2241-46fa-9e19-466bd981d310_1024.jpg"},{name: "aabhas ha", img: "https://a10.gaanacdn.com/images/albums/38/2282138/crop_480x480_2282138.jpg"}],
+                punjabi:[{name: "Goat-Diljit", img: "https://www.lyricsstatus.com/wp-content/uploads/2020/07/Webp.net-compress-image-46.jpg"}, {name: "moonlight-harnoor", img: "https://cover.mr-jatt.im/thumb/491802/Moonlight-1.jpg"},{name: "water-diljit", img: "https://i1.sndcdn.com/artworks-PHTSseRvIUVJyQU0-gSpnDg-t1080x1080.jpg"},{name: "zaroor-aparshakti", img: "https://c.saavncdn.com/522/Zaroor-Punjabi-2024-20240528201611-500x500.jpg"},{name: "Dil tu jaan tu-gurnazar", img: "https://in.images.search.yahoo.com/yhs/search;_ylt=AwrKEapzx9tnRx8OEhLnHgx.;_ylu=Y29sbwMEcG9zAzEEdnRpZAMEc2VjA3BpdnM-?p=dil+tu+jaan+tu&type=type80160-405445667&param1=497737333&hsimp=yhs-002&hspart=sz&ei=UTF-8&fr=yhs-sz-002#id=3&iurl=https%3A%2F%2Fc.saavncdn.com%2F912%2FDil-Tu-Jaan-Tu-Hindi-2024-20240607164640-500x500.jpg&action=click"},{name: "suniyan suniyan-juss", img: "https://c.saavncdn.com/121/Suniyan-Suniyan-Punjabi-2024-20240415211002-500x500.jpg"}],
+            },
+            silent: {
+                english: [{name: "Unstoppable-sia", img: "https://i.ytimg.com/vi/h3h035Eyz5A/maxresdefault.jpg"}, {name: "Bones-imagine dragons", img:"https://i.ytimg.com/vi/DnniB9tm-i0/maxresdefault.jpg"}, {name: "close eyes-dvrst", img: "https://i.ytimg.com/vi/HFux0YO96NM/maxresdefault.jpg"}, {name: "snap-rosa", img: "https://i.ytimg.com/vi/mL-BkLpjsBE/maxresdefault.jpg"}, {name: "say my name-david", img: "https://cdn.wallpapersafari.com/29/16/7z5tqC.jpg"}, {name: "darkside-neoni", img: "https://i1.sndcdn.com/artworks-0mT77eZFtmNZcS4e-F6Ds8Q-t500x500.jpg"}],
+                hindi: [{name: "sauda khara-good newz", img: "https://i.ytimg.com/vi/oJVVAf5kLEY/maxresdefault.jpg"}, {name: "Senorita-znmd", img: "https://i.ytimg.com/vi/PuhOFhmy3BU/hqdefault.jpg"},{name: "Fevicol se-dabbang", img: "https://www.filmibeat.com/img/2012/11/30-babes.jpg"},{name: "kar gayi chull-badshah", img: "https://images.genius.com/f9452df785e79ef0e4937185e2bb68b6.600x600x1.jpg"},{name: "Tamma Tamma -anuradha", img: "https://data1.ibtimes.co.in/en/full/635616/tamma-tamma-again-song-badrinath-ki-dulhania.jpg"},{name: "Chikni Chameli-shreya", img: "https://images.hindustantimes.com/img/2022/07/18/1600x900/chikni_chameli_1658125961918_1658125970281_1658125970281.jpg"}],
+                marathi:[{name: "ye go ye -Aja-Atul", img: "https://i.ytimg.com/vi/ZHuvG3k32bw/hqdefault.jpg"}, {name: "zindagi zindagi-Duniyadari", img: "https://4.bp.blogspot.com/-kfTXtcmxNVY/U8pvrOCFVxI/AAAAAAAAAko/bK0Du5mnP2s/w1200-h630-p-k-no-nu/299247_269219963213944_924905795_n.jpg"},{name: "Lagnalu-avdhoot gupte", img: "https://i.ytimg.com/vi/0V2WJUNZ9XA/maxresdefault.jpg"},{name: "vajle ki bara-natrang", img:"https://i.ytimg.com/vi/rDpN1m4Hqpg/hqdefault.jpg"},{name: "shiti vajli-avdhoot gupte", img: "https://i1.sndcdn.com/artworks-000094981546-jxsq1g-t500x500.jpg"},{name: "zingaat-Ajay-Atul", img: "https://i.ytimg.com/vi/g8bTNID9nPs/maxresdefault.jpg"}],
+            },
+
+        };
+
+        function nextSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => section.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'flex';
+        }
+
+        function selectMood(mood) {
+            localStorage.setItem("selectedMood", mood);
+            nextSection('languageSection');
+        }
+
+        function selectLanguage(language) {
+            localStorage.setItem("selectedLanguage", language);
+            displaySongs();
+        }
+
+        function displaySongs() {
+            let mood = localStorage.getItem("selectedMood");
+            let language = localStorage.getItem("selectedLanguage");
+            const songList = document.getElementById("songList");
+            songList.innerHTML = "";
+
+            if (songs[mood] && songs[mood][language]) {
+                songs[mood][language].forEach(song => {
+                    const div = document.createElement("div");
+                    div.classList.add("song-item");
+                    div.innerHTML = `
+                        <img src="${song.img}" alt="Album Cover">
+                        <div class="song-info">${song.name}</div>
+                    `;
+                    songList.appendChild(div);
+                });
+                nextSection('songsSection');
+            }
+        }
+
+        function goBack() {
+            localStorage.clear();
+            nextSection('landing');
+        }
+
+        window.onload = () => nextSection('landing');
+    </script>
+</body>
+</html>
